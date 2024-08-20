@@ -19,26 +19,14 @@ try {
 }
 
 
-// part 2
+// part 3
 
 // Using setTimeout, you can place tasks into the event queue. This sets the task to be executed after the current call stack is cleared and after the browser has had a moment to render.
 // Implement the following:
 // Create a simple HTML element to hold text. Cache this HTML element into a JavaScript variable.
+
 const element = document.createElement('div');
 document.body.appendChild(element);
-
-
-// Write a function that takes a parameter n and adds a list of all prime numbers between one and n to your HTML element.
-function addPrime(n){
-  for (let i = 2; i <= n; i++) {
-    if (isPrime(i)){
-      const el = document.createElement('div')
-      el.textContent = i;
-      element.appendChild(el);
-    }
-  }
-  alert('Calculation is finished');
-}
 
 function isPrime(n){
   for (let i = 2; i < n; i++) {
@@ -49,5 +37,19 @@ function isPrime(n){
   return true;
 }
 
-addPrime(1000);
-// Once complete, use the alert() method to alert the user that the calculation is finished.
+function getNext(i, n){
+  if (isPrime(i)){
+    const el = document.createElement('div');
+    el.textContent = i;
+    element.appendChild(el);
+  }
+  if (i < n){
+    setTimeout(() => {
+      getNext(i + 1, n);
+    }, 0);
+  } else {
+    alert('Calculation is finished');
+  }
+}
+
+getNext(0, 1000);
