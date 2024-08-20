@@ -21,35 +21,42 @@ try {
 
 // part 3
 
-// Using setTimeout, you can place tasks into the event queue. This sets the task to be executed after the current call stack is cleared and after the browser has had a moment to render.
-// Implement the following:
 // Create a simple HTML element to hold text. Cache this HTML element into a JavaScript variable.
+// Write a function that takes a parameter n and adds a list of all prime numbers between one and n to your HTML element.
+//   Once complete, use the alert() method to alert the user that the calculation is finished.
 
-const element = document.createElement('div');
-document.body.appendChild(element);
+// Using what you have learned throughout this lesson, modify your function such that each number has an opportunity to render after it is calculated, and the alert only appears once all numbers have been rendered.
 
-function isPrime(n){
-  for (let i = 2; i < n; i++) {
-    if (n % i == 0){
-      return false;
+
+// Cache the HTML element into a JavaScript variable
+const primeContainer = document.getElementById('prime-container');
+
+function isPrime(num) {
+    if (num <= 1) return false;
+    if (num === 2) return true;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
     }
-  }
-  return true;
+    return true;
 }
 
-function getNext(i, n){
-  if (isPrime(i)){
-    const el = document.createElement('div');
-    el.textContent = i;
-    element.appendChild(el);
-  }
-  if (i < n){
-    setTimeout(() => {
-      getNext(i + 1, n);
-    }, 0);
-  } else {
-    alert('Calculation is finished');
-  }
+function addPrimesToContainer(n) {
+    primeContainer.innerHTML = '';
+    let i = 1;
+    function calculatePrimes() {
+        if (i <= n) {
+            if (isPrime(i)) {
+                const p = document.createElement('p');
+                p.textContent = i;
+                primeContainer.appendChild(p);
+            }
+            i++;
+            setTimeout(calculatePrimes, 0);
+        } else {
+            alert('Calculation finished!');
+        }
+    }
+    calculatePrimes();
 }
 
-getNext(0, 1000);
+addPrimesToContainer(1000);
