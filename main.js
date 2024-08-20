@@ -1,3 +1,5 @@
+// part 1
+
 // Declare a global counter variable.
 // Create a simple function that increments the variable, and then calls itself recursively.
 // Surround the initial function call in a try/catch block.
@@ -10,8 +12,8 @@ const increment = () => {
 };
 
 try {
-	increment();
+  increment();
 } catch (error) {
-	console.log(`Error: ${error}`);
-	console.log(`Counter: ${counter}`);
+  console.log(`Error: ${error}`);
+  console.log(`Counter: ${counter}`);
 }
