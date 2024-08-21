@@ -84,32 +84,32 @@ const factorial = (n) => {
  * overflow.
  */
 
- /**
-  * Step Two: modify the recursive function.
-  * 
-  * In order to trampoline the function, we must
-  * return another function instead of calling
-  * the recursive function itself. 
-  * 
-  * This prevents the function from being added 
-  * directly to the call stack.
-  */
- const facto = (n, a = 1) => {
-   if (n === 0) return a;
-   return () => facto(n - 1, n * a);
- }
+/**
+ * Step Two: modify the recursive function.
+ * 
+ * In order to trampoline the function, we must
+ * return another function instead of calling
+ * the recursive function itself. 
+ * 
+ * This prevents the function from being added 
+ * directly to the call stack.
+ */
+const facto = (n, a = 1) => {
+  if (n === 0) return a;
+  return () => facto(n - 1, n * a);
+}
 
- /**
-  * Step Three: create a trampoline function.
-  * 
-  * This function takes another function and a list
-  * of arguments, and uses a linear loop rather than
-  * traditional recursion to handle the function calls.
-  * 
-  * This prevents the stack overflow, while still
-  * maintaining the declarative approach provided by
-  * recursive functions.
-  */
+/**
+ * Step Three: create a trampoline function.
+ * 
+ * This function takes another function and a list
+ * of arguments, and uses a linear loop rather than
+ * traditional recursion to handle the function calls.
+ * 
+ * This prevents the stack overflow, while still
+ * maintaining the declarative approach provided by
+ * recursive functions.
+ */
 const trampoline = (f, ...args) => {
   let result = f(...args);
   while (typeof result === "function") {
@@ -134,10 +134,10 @@ console.log(trampoline(facto(10000)))
 const flatten = (arr) => {
   let result = [];
   arr.forEach(el => {
-    if (typeof el === 'object') {
-      result = [...result, ...flatten(el)];
+    if (Array.isArray(el)) {
+      result.push(...flatten(el));
     } else {
-      result.push(el)
+      result.push(el);
     }
   })
   return result;
