@@ -128,3 +128,22 @@ const trampoline = (f, ...args) => {
  * the principle of trampolining holds!
  */
 console.log(trampoline(facto(10000)))
+
+
+// Write a recursive function that completely flattens an array of nested arrays, regardless of how deeply nested the arrays are.
+const flatten = (arr) => {
+  let result = [];
+  arr.forEach(el => {
+    if (typeof el === 'object') {
+      result = [...result, ...flatten(el)];
+    } else {
+      result.push(el)
+    }
+  })
+  return result;
+}
+
+console.log(flatten([1, [2, [3, [4, [5, [6]]]]]]));
+
+
+// Once your recursive function is complete, trampoline it.
