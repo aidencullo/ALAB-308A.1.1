@@ -127,23 +127,22 @@ const trampoline = (f, ...args) => {
  * Unfortunately, both of these are the case here, but
  * the principle of trampolining holds!
  */
-console.log(trampoline(facto(10000)))
+// console.log(trampoline(facto(10000)))
 
 
 // Write a recursive function that completely flattens an array of nested arrays, regardless of how deeply nested the arrays are.
-const flatten = (arr) => {
-  let result = [];
-  arr.forEach(el => {
-    if (Array.isArray(el)) {
-      result.push(...flatten(el));
-    } else {
-      result.push(el);
-    }
-  })
-  return result;
+
+const flatten = (arr) => arr.reduce((acc, el) => 
+  acc.concat(Array.isArray(el) ? flatten(el) : el), []);
+
+let infiniteArray = [];
+for (let i = 0; i < 10000; i++) {
+  infiniteArray = [infiniteArray];
 }
 
-console.log(flatten([1, [2, [3, [4, [5, [6]]]]]]));
+// RangeError: Maximum call stack size exceeded
+// console.log(flatten(infiniteArray));
 
-
-// Once your recursive function is complete, trampoline it.
+console.log('trampoline');
+console.log(trampoline(flatto(infiniteArray)));
+console.log('finished');
